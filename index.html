@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080503">
+<title>Bottle list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080503;
+    --bg2:#120b06;
+    --gold1:#fbe8b8;
+    --gold2:#e2b968;
+    --gold3:#b98534;
+    --amber:#ff9a2e;
+    --text:#f2e2c2;
+    --muted:#9a846a;
+    --line:rgba(226,185,104,.30);
+    --sans:'Josefin Sans','Century Gothic','Avenir Next',system-ui,sans-serif;
+    --script:'Great Vibes','Snell Roundhand','Brush Script MT',cursive;
+    --goldgrad:linear-gradient(180deg,var(--gold1) 0%,var(--gold2) 55%,var(--gold3) 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    min-height:100vh;
+    padding-bottom:70px;
+    overflow-x:hidden;
+  }
+
+  /* ---------- SFONDO ATMOSFERICO ---------- */
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+  /* se carichi "sfondo.jpg" accanto a index.html, compare qui sotto, scurito */
+  .bg .photo{position:absolute;inset:0;background:url("sfondo.jpg") center top/cover no-repeat;opacity:.32}
+  .bg .glow{position:absolute;inset:0;
+    background:
+      radial-gradient(520px 380px at 50% 0%, rgba(255,154,46,.20), transparent 70%),
+      radial-gradient(420px 320px at 8% 96%, rgba(255,140,40,.22), transparent 70%),
+      radial-gradient(380px 300px at 100% 62%, rgba(255,140,40,.16), transparent 70%),
+      linear-gradient(180deg,rgba(8,5,3,.55),rgba(8,5,3,.92) 55%,rgba(8,5,3,.98))}
+  .palm{position:absolute;opacity:.55}
+  .palm.a{top:-30px;left:-60px;width:320px;transform:rotate(8deg)}
+  .palm.b{bottom:-40px;right:-70px;width:340px;transform:rotate(188deg)}
+  .palm.c{bottom:-30px;left:-80px;width:260px;transform:rotate(60deg);opacity:.4}
+  .pillar{position:absolute;top:0;bottom:0;right:0;width:clamp(44px,9vw,110px);opacity:.30;
+    background:
+      linear-gradient(90deg,rgba(8,5,3,.9),transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='90'><g fill='none' stroke='%23e2b968' stroke-width='2.2'><polyline points='4,6 30,34 56,6'/><polyline points='4,26 30,54 56,26'/><polygon points='30,60 44,74 30,88 16,74'/></g></svg>") center top/100% auto repeat-y;
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 70%,transparent 100%)}
+
+  .wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 20px}
+
+  /* ---------- HEADER ---------- */
+  header{text-align:center;padding:56px 0 30px}
+  .logo{display:flex;align-items:center;justify-content:center;gap:clamp(6px,2.2vw,16px);
+    font-weight:300;font-size:clamp(54px,17vw,104px);line-height:1;letter-spacing:.04em}
+  .logo span,.logo svg{background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo .t{display:inline-block;transform:scaleX(1.12)}
+  .logo svg{width:.78em;height:.78em;overflow:visible;margin:0 .02em}
+  .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto 0;max-width:420px}
+  .divider i{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold2))}
+  .divider i:last-child{background:linear-gradient(90deg,var(--gold2),transparent)}
+  .divider b{width:9px;height:9px;background:var(--gold2);transform:rotate(45deg);display:block}
+  .place{font-family:var(--script);font-size:clamp(58px,16vw,92px);line-height:1;margin-top:22px;
+    background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent;padding:4px 12px}
+  .sub{font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold2);margin-top:6px;padding-left:.5em;font-weight:400}
+  .doc{margin-top:26px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);padding-left:.42em}
+
+  .title{font-weight:300;font-size:clamp(34px,9.5vw,68px);line-height:1.1;letter-spacing:.16em;text-transform:uppercase;
+    padding-left:.16em;
+    background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  header{padding:64px 0 14px}
+
+  /* ---------- BARRA ---------- */
+  .bar{position:sticky;top:0;z-index:10;margin:0 -20px;padding:14px 20px 8px;
+    background:linear-gradient(180deg,rgba(8,5,3,.97) 78%,rgba(8,5,3,0));backdrop-filter:blur(6px)}
+  .search{width:100%;background:rgba(18,11,6,.85);border:1px solid var(--line);color:var(--text);
+    padding:13px 20px;border-radius:999px;font:400 14px var(--sans);letter-spacing:.14em;outline:none;transition:.2s}
+  .search::placeholder{color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.24em}
+  .search:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(226,185,104,.10)}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 6px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;border:1px solid var(--line);background:transparent;color:var(--gold2);
+    padding:9px 20px;border-radius:999px;font:600 11px var(--sans);letter-spacing:.26em;text-transform:uppercase;cursor:pointer;transition:.2s}
+  .chip:hover{border-color:var(--gold2)}
+  .chip.on{background:var(--goldgrad);border-color:transparent;color:#1a1005}
+
+  /* ---------- CATEGORIE ---------- */
+  section{margin-top:46px}
+  .cat{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+  .cat .ring{flex:none;width:54px;height:54px;border-radius:50%;border:1.5px solid var(--gold2);display:grid;place-items:center;
+    box-shadow:0 0 22px rgba(255,154,46,.18), inset 0 0 14px rgba(255,154,46,.10)}
+  .cat .ring i{display:block;width:10px;height:10px;background:var(--gold2);transform:rotate(45deg)}
+  .cat h2{font-weight:700;font-size:clamp(22px,6vw,30px);letter-spacing:.34em;text-transform:uppercase;
+    background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .cat .n{margin-left:auto;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .rule{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .rule i{flex:1;height:1px;background:linear-gradient(90deg,var(--gold2),transparent)}
+  .rule b{width:7px;height:7px;background:var(--gold2);transform:rotate(45deg);display:block}
+
+  /* ---------- BOTTIGLIE ---------- */
+  .item{display:grid;grid-template-columns:1fr auto;gap:3px 18px;padding:20px 0;position:relative;
+    border-bottom:1px solid transparent;
+    background:linear-gradient(90deg,transparent,var(--line),transparent) bottom/100% 1px no-repeat;
+    opacity:0;transform:translateY(10px);animation:in .5s ease forwards}
+  @keyframes in{to{opacity:1;transform:none}}
+  .name{font-weight:600;font-size:clamp(17px,4.6vw,21px);letter-spacing:.16em;text-transform:uppercase;line-height:1.25;color:var(--gold1)}
+  .meta{grid-column:1;color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase;line-height:1.6;font-weight:400}
+  .meta b{color:var(--gold2);font-weight:600}
+  .price{grid-row:1 / span 2;grid-column:2;align-self:center;font-weight:600;font-size:clamp(20px,5.4vw,25px);letter-spacing:.08em;
+    color:var(--gold1);border:1px solid var(--gold2);border-radius:999px;padding:8px 18px;white-space:nowrap;
+    box-shadow:0 0 18px rgba(255,154,46,.12), inset 0 0 12px rgba(255,154,46,.06)}
+  .tag{display:inline-block;margin-left:10px;vertical-align:middle;font:700 9px var(--sans);letter-spacing:.24em;text-transform:uppercase;
+    color:#1a1005;background:var(--goldgrad);padding:4px 9px;border-radius:999px;position:relative;top:-1px}
+  .tag.off{background:#4a3c2e;color:#bfa886}
+  .soldout .name,.soldout .meta{opacity:.42}
+  .soldout .price{opacity:.42;text-decoration:line-through;box-shadow:none}
+  .empty{text-align:center;color:var(--muted);padding:60px 0;letter-spacing:.3em;text-transform:uppercase;font-size:13px;display:none}
+
+  /* ---------- FOOTER ---------- */
+  footer{text-align:center;margin-top:70px}
+  footer .divider{margin-bottom:26px}
+  footer .info{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold2);line-height:2;padding-left:.34em}
+  .ig{display:inline-flex;align-items:center;gap:14px;margin-top:20px;text-decoration:none;color:var(--gold1)}
+  .ig svg{width:46px;height:46px;flex:none}
+  .ig span{border:1px solid var(--gold2);border-radius:14px;padding:13px 26px;font-weight:600;font-size:14px;letter-spacing:.22em;text-transform:uppercase}
+  .ig:hover span{background:rgba(226,185,104,.10)}
+  .note{margin-top:34px;font-size:11px;letter-spacing:.2em;color:var(--muted);line-height:1.9;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- ============ SFONDO ============ -->
+<div class="bg" aria-hidden="true">
+  <div class="photo"></div>
+  <div class="glow"></div>
+  <div class="pillar"></div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <g id="frond">
+        <path d="M0 0 C 6 -90 -4 -190 6 -300" fill="none" stroke="#2a2412" stroke-width="5"/>
+        <g fill="#1a1d0e" stroke="rgba(226,185,104,.35)" stroke-width="1.2">
+          <path d="M0 -10 Q 70 -30 120 -10 Q 70 -10 0 -10Z" transform="rotate(-25)"/>
+          <path d="M0 -10 Q -70 -30 -120 -10 Q -70 -10 0 -10Z" transform="rotate(25)"/>
+          <path d="M2 -60 Q 90 -90 150 -60 Q 90 -50 2 -60Z" transform="rotate(-22)"/>
+          <path d="M2 -60 Q -90 -90 -150 -60 Q -90 -50 2 -60Z" transform="rotate(22)"/>
+          <path d="M4 -120 Q 90 -150 150 -118 Q 90 -108 4 -120Z" transform="rotate(-18)"/>
+          <path d="M4 -120 Q -90 -150 -150 -118 Q -90 -108 4 -120Z" transform="rotate(18)"/>
+          <path d="M6 -180 Q 80 -206 130 -176 Q 80 -166 6 -180Z" transform="rotate(-14)"/>
+          <path d="M6 -180 Q -80 -206 -130 -176 Q -80 -166 6 -180Z" transform="rotate(14)"/>
+          <path d="M6 -240 Q 56 -262 92 -238 Q 56 -228 6 -240Z" transform="rotate(-10)"/>
+          <path d="M6 -240 Q -56 -262 -92 -238 Q -56 -228 6 -240Z" transform="rotate(10)"/>
+        </g>
+      </g>
+    </defs>
+  </svg>
+  <svg class="palm a" viewBox="-160 -310 320 320"><use href="#frond"/></svg>
+  <svg class="palm b" viewBox="-160 -310 320 320"><use href="#frond"/></svg>
+  <svg class="palm c" viewBox="-160 -310 320 320"><use href="#frond"/></svg>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <h1 class="title" id="titolo"></h1>
+    <div class="divider"><i></i><b></b><i></i></div>
+  </header>
+
+  <div class="bar">
+    <input class="search" id="q" type="search" placeholder="Cerca una bottiglia" autocomplete="off">
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <main id="list"></main>
+  <div class="empty" id="empty">Nessuna bottiglia trovata</div>
+
+  <footer>
+    <div class="divider"><i></i><b></b><i></i></div>
+    <div class="note" id="note"></div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   MODIFICA SOLO QUESTA PARTE
+   Per aggiornare il listino cambia nomi, prezzi e righe qui sotto.
+   Bottiglia finita:      soldout:true
+   Bottiglia in evidenza: tag:"Novità"  (o "Top", "Riserva"...)
+   ============================================================ */
+const LOCALE = {
+  titolo: "Bottle list",
+  nota: "Prezzi in euro, IVA inclusa.<br>Chiedi al personale per le disponibilità della serata."
+};
+
+const BOTTIGLIE = [
+  { cat:"Champagne", nome:"Moët & Chandon Impérial", info:"Brut · Champagne, Francia", vol:"75 cl", prezzo:95 },
+  { cat:"Champagne", nome:"Veuve Clicquot Brut",     info:"Brut · Champagne, Francia", vol:"75 cl", prezzo:110, tag:"Top" },
+  { cat:"Champagne", nome:"Dom Pérignon",            info:"Vintage · Champagne, Francia", vol:"75 cl", prezzo:380, tag:"Riserva" },
+
+  { cat:"Vodka", nome:"Belvedere",    info:"Polonia", vol:"70 cl", prezzo:130 },
+  { cat:"Vodka", nome:"Grey Goose",   info:"Francia", vol:"70 cl", prezzo:140 },
+  { cat:"Vodka", nome:"Beluga Noble", info:"Russia",  vol:"70 cl", prezzo:180, soldout:true },
+
+  { cat:"Gin", nome:"Hendrick's", info:"Scozia",   vol:"70 cl", prezzo:120 },
+  { cat:"Gin", nome:"Monkey 47",  info:"Germania", vol:"50 cl", prezzo:130, tag:"Novità" },
+  { cat:"Gin", nome:"Gin Mare",   info:"Spagna",   vol:"70 cl", prezzo:125 },
+
+  { cat:"Whisky", nome:"Glenfiddich 12", info:"Single Malt · Scozia", vol:"70 cl", prezzo:140 },
+  { cat:"Whisky", nome:"Macallan 12",    info:"Single Malt · Scozia", vol:"70 cl", prezzo:240, tag:"Top" },
+  { cat:"Whisky", nome:"Jack Daniel's",  info:"Tennessee, USA",       vol:"70 cl", prezzo:110 },
+
+  { cat:"Rum", nome:"Diplomático Reserva", info:"Venezuela", vol:"70 cl", prezzo:130 },
+  { cat:"Rum", nome:"Zacapa 23",           info:"Guatemala", vol:"70 cl", prezzo:170 },
+
+  { cat:"Tequila", nome:"Don Julio Blanco", info:"Messico", vol:"70 cl", prezzo:150 },
+  { cat:"Tequila", nome:"Patrón Reposado",  info:"Messico", vol:"70 cl", prezzo:160 },
+
+  { cat:"Vini", nome:"Franciacorta Brut", info:"Lombardia", vol:"75 cl", prezzo:55 },
+  { cat:"Vini", nome:"Barolo DOCG",       info:"Piemonte",  vol:"75 cl", prezzo:85 },
+  { cat:"Vini", nome:"Vermentino",        info:"Sardegna",  vol:"75 cl", prezzo:38 }
+];
+/* ============ FINE PARTE DA MODIFICARE ============ */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+document.title = LOCALE.titolo;
+$("#titolo").textContent = LOCALE.titolo;
+$("#note").innerHTML = LOCALE.nota;
+
+const cats = [...new Set(BOTTIGLIE.map(b => b.cat))];
+let active = "Tutte";
+
+function renderChips(){
+  $("#chips").innerHTML = ["Tutte", ...cats].map(c =>
+    `<button class="chip ${c===active?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+}
+
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const visibili = BOTTIGLIE.filter(b =>
+    (active==="Tutte" || b.cat===active) &&
+    (!q || (b.nome+" "+(b.info||"")+" "+b.cat).toLowerCase().includes(q)));
+
+  let html = "", d = 0;
+  cats.forEach(c => {
+    const rows = visibili.filter(b => b.cat===c);
+    if(!rows.length) return;
+    html += `<section>
+      <div class="cat"><div class="ring"><i></i></div><h2>${esc(c)}</h2><span class="n">${rows.length} ${rows.length===1?'etichetta':'etichette'}</span></div>
+      <div class="rule"><b></b><i></i></div>`;
+    rows.forEach(b => {
+      html += `<div class="item ${b.soldout?'soldout':''}" style="animation-delay:${(d++)*40}ms">
+        <div class="name">${esc(b.nome)}${b.tag?`<span class="tag">${esc(b.tag)}</span>`:''}${b.soldout?`<span class="tag off">Finita</span>`:''}</div>
+        <div class="meta">${esc(b.info)}${b.vol?` · <b>${esc(b.vol)}</b>`:''}</div>
+        <div class="price">${typeof b.prezzo==='number'?'&euro; '+b.prezzo:esc(b.prezzo)}</div>
+      </div>`;
+    });
+    html += `</section>`;
+  });
+  $("#list").innerHTML = html;
+  $("#empty").style.display = visibili.length ? "none" : "block";
+}
+
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if(!b) return;
+  active = b.dataset.c; renderChips(); render();
+});
+$("#q").addEventListener("input", render);
+
+renderChips(); render();
+</script>
+</body>
+</html>
